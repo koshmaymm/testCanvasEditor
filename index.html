@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+
+<body>
+    <div class="content">
+        <canvas id="canvasTest" width="600" height="400">
+		</canvas>
+    </div>
+    <sidebar class="sidebarRight">
+
+        <label><h3>Select line width</h3></label>
+        <select class="soflow-color" id="lineWidth">
+			<option value="1">1</option>
+			<option value="2">2</option>
+			<option value="3">3</option>
+			<option value="4">4</option>
+			<option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+            <option value="11">11</option>
+            <option value="12">12</option>
+            <option value="13">13</option>
+            <option value="14">14</option>
+            <option value="16">16</option>
+            <option value="18">18</option>
+            <option value="20">20</option>
+            <option value="22">22</option>
+			<option value="24">24</option>
+			<option value="32">32</option>
+		</select>
+    </sidebar>
+    <sidebar class="sidebarRight sidebarRightColor">
+        <button id="clearCanvas">Clear Canvas</button>
+        <button id="moove">MOOVE</button>
+        <label><h3>Select line color</h3></label>
+        <form class="colorForm" id="colorForm">
+            <ul id="canvasColor">
+                <li><label><input type="radio" name="checkColor" value="#FF0000" >Red</div></label></li>
+                <li><label><input type="radio" name="checkColor" value="#FFA500">Orange</div></label></li>
+                <li><label><input type="radio" name="checkColor" value="#FFFF00">Yellow</div></label></li>
+                <li><label><input type="radio" name="checkColor" value="#008000">Green</div></label></li>
+                <li><label><input type="radio" name="checkColor" value="#ADD8E6">LightBlue</div></label></li>
+                <li><label><input type="radio" name="checkColor" value="#0000FF">Blue</div></label></li>
+                <li><label><input type="radio" name="checkColor" value="#6A5ACD">SlateBlue</div></label></li>
+                <li><label><input type="radio" name="checkColor" value="#000000" checked>Black</label></li>
+            </ul>
+        </form>
+    </sidebar>
+
+
+
+    <script src="script.js"></script>
+</body>
+
+</html>
