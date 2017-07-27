@@ -1,0 +1,103 @@
+body {
+    background-color: #E0FFFF;
+}
+
+#canvasTest {
+    border: 3px solid gray;
+    /*cursor: pointer;*/
+    background-color: white;
+    /*box-sizing: border-box;
+    top: 8px;
+    left: 8px;*/
+    float: left;
+}
+
+select {
+    outline: 0 !important;
+}
+
+button {
+    margin: 8px 0;
+    text-decoration: none;
+    text-align: center;
+    padding: 8px 16px;
+    border: solid 3px #191970;
+    -webkit-border-radius: 16px;
+    -moz-border-radius: 16px;
+    border-radius: 16px;
+    font: 12px Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    color: #ffffff;
+    background-color: #e0b3db;
+    outline: 0 !important;
+    min-width: 140px;
+}
+
+button:hover {
+    color: #006400;
+    border: solid 3px #006400;
+}
+
+button:active {
+    color: #696969;
+    border: solid 3px #696969;
+}
+
+.sidebar {
+    width: 180px;
+    float: left;
+    margin-right: 60px;
+    text-align: center;
+    border: solid 3px #006400;
+}
+
+.sidebarRight {
+    width: 180px;
+    float: right;
+    text-align: center;
+    border: solid 3px #006400;
+    margin-right: 12px;
+}
+
+.sidebarRightColor {
+    text-align: left;
+}
+
+label>h3 {
+    text-align: center;
+}
+
+select.soflow,
+select.soflow-color {
+    -webkit-appearance: button;
+    -webkit-border-radius: 2px;
+    -webkit-box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
+    -webkit-padding-end: 20px;
+    -webkit-padding-start: 2px;
+    -webkit-user-select: none;
+    background-image: url(http://i62.tinypic.com/15xvbd5.png), -webkit-linear-gradient(#FAFAFA, #F4F4F4 40%, #E5E5E5);
+    background-position: 97% center;
+    background-repeat: no-repeat;
+    border: 1px solid #AAA;
+    color: #555;
+    font-size: inherit;
+    overflow: hidden;
+    padding: 5px 10px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 80px;
+}
+
+select.soflow-color {
+    color: #fff;
+    background-image: url(http://i62.tinypic.com/15xvbd5.png), -webkit-linear-gradient(#779126, #779126 40%, #779126);
+    background-color: #779126;
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    border-radius: 20px;
+    padding-left: 15px;
+}
+
+ul {
+    list-style-type: none;
+}
