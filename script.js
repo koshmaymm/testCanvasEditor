@@ -47,6 +47,11 @@ window.onload = () => {
         ctx.font = "40px Arial";
         ctx.strokeText("Hello World", 50, 50);
         ctx.stroke();
+
+        ctx.beginPath();
+        ctx.moveTo(50, 100);
+        ctx.arc(100, 100, canvasProps.width, 0, (2 * Math.PI), false);
+        ctx.fill();
     }
 
     getFirstPosition = (event) => {
@@ -59,26 +64,35 @@ window.onload = () => {
         console.log("event.pageX = " + event.pageX + " " + "event.pageY = " + event.pageY);
         params.push(event.clientX - 11);
         params.push(event.clientY - 11);
+        mooveLine();
     }
 
     mooveLine = () => {
-            if ((params.length < 4) || (params.length > 4)) {
-                params = [];
+            if (params.length > 4) {
+                params = params.slice(3);
             }
             if (params.length == 4) {
-                console.log(params[0]);
-                console.log(params[1]);
-                console.log(params[2]);
-                console.log(params[3]);
-                //ctx.fillRect(params[0], params[2], params[1], params[3]);
-                ctx.beginPath();
-                ctx.moveTo(params[0], params[1]);
-                ctx.lineTo(params[2], params[3]);
-                ctx.stroke();
-                ctx.closePath();
-                //ctx.strokeText("Hello World", 50, 50);
+                if (params[0] == params[2] && params[1] == params[3]) {
+                    ctx.beginPath();
+                    ctx.moveTo(params[0], params[1]);
+                    ctx.arc(params[0], params[1], (canvasProps.width == 1 ? canvasProps.width : canvasProps.width / 2), 0, (2 * Math.PI), false);
+                    ctx.fill();
+                } else {
+                    /*console.log(params[0]);
+                    console.log(params[1]);
+                    console.log(params[2]);
+                    console.log(params[3]);*/
+
+                    ctx.beginPath();
+                    ctx.moveTo(params[0], params[1]);
+                    ctx.lineTo(params[2], params[3]);
+                    ctx.stroke();
+                    ctx.closePath();
+                    //ctx.strokeText("Hello World", 50, 50);
+                }
+
             }
-            params = [];
+            params = params.slice(3);
         }
         //console.log(elem);
 
