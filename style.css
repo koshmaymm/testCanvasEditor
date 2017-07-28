@@ -4,11 +4,8 @@ body {
 
 #canvasTest {
     border: 3px solid gray;
-    /*cursor: pointer;*/
+    cursor: crosshair;
     background-color: white;
-    /*box-sizing: border-box;
-    top: 8px;
-    left: 8px;*/
     float: left;
 }
 
