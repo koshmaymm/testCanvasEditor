@@ -95,3 +95,7 @@ select.soflow-color {
 ul {
     list-style-type: none;
 }
+
+#img {
+    display: none;
+}
