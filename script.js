@@ -5,13 +5,13 @@ window.onload = () => {
     let clear = document.getElementById("clearCanvas");
     let moove = document.getElementById("moove");
     let canvasColor = document.getElementById("canvasColor");
+    let addPicture = document.getElementById("addPicture");
 
     let canvasProps = {};
     let params = [];
 
-
     let ctx = example.getContext('2d');
-
+    let img = document.getElementById("img");
 
 
 
@@ -38,30 +38,49 @@ window.onload = () => {
 
     moovePic = () => {
         ctx.fillStyle = canvasProps.color;
-        ctx.fillRect(10, 20, 10, 20);
+
         ctx.beginPath();
         ctx.lineWidth = canvasProps.width;
         ctx.strokeStyle = canvasProps.color;
-        ctx.moveTo(10, 20);
-        ctx.lineTo(20, 30);
+
         ctx.font = "40px Arial";
-        ctx.strokeText("Hello World", 50, 50);
+        ctx.strokeText("Hello World !", 64, 164);
         ctx.stroke();
 
         ctx.beginPath();
-        ctx.moveTo(50, 100);
-        ctx.arc(100, 100, canvasProps.width, 0, (2 * Math.PI), false);
+        ctx.arc(0, 0, canvasProps.width * 1.5, 0, (2 * Math.PI), false);
         ctx.fill();
+        ctx.stroke();
+
+        ctx.beginPath();
+        ctx.arc(0, 400, canvasProps.width * 1.5, 0, (2 * Math.PI), false);
+        ctx.fill();
+        ctx.stroke();
+
+        ctx.beginPath();
+        ctx.arc(600, 400, canvasProps.width * 1.5, 0, (2 * Math.PI), false);
+        ctx.fill();
+        ctx.stroke();
+
+        ctx.beginPath();
+        ctx.arc(600, 0, canvasProps.width * 1.5, 0, (2 * Math.PI), false);
+        ctx.fill();
+        ctx.stroke();
+
+    }
+
+    addPic = () => {
+        ctx.drawImage(img, 0, 0, 600, 400);
     }
 
     getFirstPosition = (event) => {
-        console.log("event.pageX = " + event.pageX + " " + "event.pageY = " + event.pageY);
+        //console.log("event.pageX = " + event.pageX + " " + "event.pageY = " + event.pageY);
         params.push(event.clientX - 11);
         params.push(event.clientY - 11);
     }
 
     getSecondPosition = (event) => {
-        console.log("event.pageX = " + event.pageX + " " + "event.pageY = " + event.pageY);
+        //console.log("event.pageX = " + event.pageX + " " + "event.pageY = " + event.pageY);
         params.push(event.clientX - 11);
         params.push(event.clientY - 11);
         mooveLine();
@@ -89,6 +108,8 @@ window.onload = () => {
                     ctx.stroke();
                     ctx.closePath();
                     //ctx.strokeText("Hello World", 50, 50);
+
+
                 }
 
             }
@@ -101,6 +122,7 @@ window.onload = () => {
 
     clear.addEventListener("click", clearFild, false);
     moove.addEventListener("click", moovePic, false);
+    addPicture.addEventListener("mouseup", addPic, false);
     thickness.addEventListener("click", setWidth, false);
     canvasColor.addEventListener("click", setColor, false);
 
