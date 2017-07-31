@@ -3,9 +3,11 @@ window.onload = () => {
     let example = document.getElementById("canvasTest");
     let thickness = document.getElementById("lineWidth");
     let clear = document.getElementById("clearCanvas");
+    let clearStorage = document.getElementById("clearStorage");
     let moove = document.getElementById("moove");
     let canvasColor = document.getElementById("canvasColor");
     let addPicture = document.getElementById("addPicture");
+    let addData = document.getElementById("addData");
     let count = 1;
     let data = {};
     let canvasProps = {};
@@ -77,10 +79,10 @@ window.onload = () => {
         ctx.closePath();
     }
 
-    putPoint = () => {
+    putPoint = (colorLS) => {
         ctx.beginPath();
-        ctx.strokeStyle = canvasProps.color;
-        ctx.fillStyle = canvasProps.color;
+        ctx.strokeStyle = colorLS || canvasProps.color;
+        ctx.fillStyle = colorLS || canvasProps.color;
         ctx.arc(canvasProps.W1X, canvasProps.H1X, (canvasProps.width == 1 ? canvasProps.width : canvasProps.width / 2), 0, (2 * Math.PI), false);
         ctx.fill();
     }
@@ -93,10 +95,37 @@ window.onload = () => {
     checkData = () => {
         if (window.localStorage.length > 0) {
             let a = localStorage;
-            console.log("HI2");
+            // console.log("HI2");
         } else {
             console.log("HI");
         }
+    }
+
+    getSavedData = () => {
+        let lS = localStorage;
+
+        for (var i = 0, n = lS.length; i < n; i++) {
+            let keyName = lS.key(i);
+            let keyParam = lS[keyName].split(',');
+            //let dataWidth = keyParam[0].substring(10);
+            let thickLS = +keyParam[0].slice(10, -1);
+            let colorLS = keyParam[1].slice(9, -1);
+            let X1LS = +keyParam[2].slice(6);
+            let Y1LS = +keyParam[3].slice(6);
+            let X21LS = +keyParam[4].slice(6);
+            let Y2LS = +keyParam[5].slice(6, -1);
+            console.log(keyName);
+            console.log("width : " + thickLS);
+            console.log("color : " + colorLS);
+            console.log("X1LS : " + X1LS);
+            console.log("Y1LS : " + Y1LS);
+            console.log("X21LS : " + X21LS);
+            console.log("Y2LS :" + Y2LS);
+        }
+    }
+
+    clearStorageData = () => {
+        localStorage.clear();
     }
 
     setWidth();
@@ -104,10 +133,12 @@ window.onload = () => {
     checkData();
 
     clear.addEventListener("click", clearFild, false);
+    clearStorage.addEventListener("click", clearStorageData, false);
     moove.addEventListener("click", moovePic, false);
-    addPicture.addEventListener("mouseup", addPic, false);
+    addPicture.addEventListener("click", addPic, false);
     thickness.addEventListener("click", setWidth, false);
     canvasColor.addEventListener("click", setColor, false);
+    addData.addEventListener("click", getSavedData, false);
 
     example.addEventListener("mousedown", getFirstPosition, false);
     example.addEventListener("mouseup", getSecondPosition, false);
