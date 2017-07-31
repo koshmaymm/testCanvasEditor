@@ -6,9 +6,10 @@ window.onload = () => {
     let moove = document.getElementById("moove");
     let canvasColor = document.getElementById("canvasColor");
     let addPicture = document.getElementById("addPicture");
-
+    let count = 1;
+    let data = {};
     let canvasProps = {};
-    let params = [];
+    //canvasProps.params = [];
 
     let ctx = example.getContext('2d');
     let img = document.getElementById("img");
@@ -20,20 +21,11 @@ window.onload = () => {
     }
 
     setWidth = () => {
-        let thick = thickness.options[thickness.selectedIndex].value
-        canvasProps.width = thick;
-        ctx.lineWidth = thick;
-        //console.log(canvasProps.width);
-        return thick;
+        return canvasProps.width = thickness.options[thickness.selectedIndex].value;
     }
 
     setColor = () => {
-        let color = document.querySelector('input[name="checkColor"]:checked').value;
-        canvasProps.color = color;
-        ctx.strokeStyle = color;
-        ctx.fillStyle = color;
-        //console.log(canvasProps.color);
-        return color;
+        return canvasProps.color = document.querySelector('input[name="checkColor"]:checked').value;
     }
 
     moovePic = () => {
@@ -46,27 +38,6 @@ window.onload = () => {
         ctx.font = "40px Arial";
         ctx.strokeText("Hello World !", 64, 164);
         ctx.stroke();
-
-        ctx.beginPath();
-        ctx.arc(0, 0, canvasProps.width * 1.5, 0, (2 * Math.PI), false);
-        ctx.fill();
-        ctx.stroke();
-
-        ctx.beginPath();
-        ctx.arc(0, 400, canvasProps.width * 1.5, 0, (2 * Math.PI), false);
-        ctx.fill();
-        ctx.stroke();
-
-        ctx.beginPath();
-        ctx.arc(600, 400, canvasProps.width * 1.5, 0, (2 * Math.PI), false);
-        ctx.fill();
-        ctx.stroke();
-
-        ctx.beginPath();
-        ctx.arc(600, 0, canvasProps.width * 1.5, 0, (2 * Math.PI), false);
-        ctx.fill();
-        ctx.stroke();
-
     }
 
     addPic = () => {
@@ -75,50 +46,62 @@ window.onload = () => {
 
     getFirstPosition = (event) => {
         //console.log("event.pageX = " + event.pageX + " " + "event.pageY = " + event.pageY);
-        params.push(event.clientX - 11);
-        params.push(event.clientY - 11);
+        //canvasProps.params.push(event.clientX - 11);
+        //canvasProps.params.push(event.clientY - 11);
+        canvasProps.W1X = event.clientX - 11;
+        canvasProps.H1X = event.clientY - 11;
     }
 
     getSecondPosition = (event) => {
-        //console.log("event.pageX = " + event.pageX + " " + "event.pageY = " + event.pageY);
-        params.push(event.clientX - 11);
-        params.push(event.clientY - 11);
-        mooveLine();
+        canvasProps.W2X = event.clientX - 11;
+        canvasProps.H2X = event.clientY - 11;
+    }
+
+    startDrawing = () => {
+
+        if (canvasProps.W1X === canvasProps.W2X && canvasProps.H1X === canvasProps.H2X && canvasProps.W1X != false) {
+            putPoint();
+        } else {
+            mooveLine();
+        }
+        setDataToLocalStorage();
     }
 
     mooveLine = () => {
-            if (params.length > 4) {
-                params = params.slice(3);
-            }
-            if (params.length == 4) {
-                if (params[0] == params[2] && params[1] == params[3]) {
-                    ctx.beginPath();
-                    ctx.moveTo(params[0], params[1]);
-                    ctx.arc(params[0], params[1], (canvasProps.width == 1 ? canvasProps.width : canvasProps.width / 2), 0, (2 * Math.PI), false);
-                    ctx.fill();
-                } else {
-                    /*console.log(params[0]);
-                    console.log(params[1]);
-                    console.log(params[2]);
-                    console.log(params[3]);*/
+        ctx.beginPath();
+        ctx.lineWidth = canvasProps.width;
+        ctx.strokeStyle = canvasProps.color;
+        ctx.moveTo(canvasProps.W1X, canvasProps.H1X);
+        ctx.lineTo(canvasProps.W2X, canvasProps.H2X);
+        ctx.stroke();
+        ctx.closePath();
+    }
 
-                    ctx.beginPath();
-                    ctx.moveTo(params[0], params[1]);
-                    ctx.lineTo(params[2], params[3]);
-                    ctx.stroke();
-                    ctx.closePath();
-                    //ctx.strokeText("Hello World", 50, 50);
+    putPoint = () => {
+        ctx.beginPath();
+        ctx.strokeStyle = canvasProps.color;
+        ctx.fillStyle = canvasProps.color;
+        ctx.arc(canvasProps.W1X, canvasProps.H1X, (canvasProps.width == 1 ? canvasProps.width : canvasProps.width / 2), 0, (2 * Math.PI), false);
+        ctx.fill();
+    }
 
+    setDataToLocalStorage = () => {
+        if (count == 1) { localStorage.clear(); }
+        localStorage.setItem("canvasDrow" + count++, JSON.stringify(canvasProps));
+    }
 
-                }
-
-            }
-            params = params.slice(3);
+    checkData = () => {
+        if (window.localStorage.length > 0) {
+            let a = localStorage;
+            console.log("HI2");
+        } else {
+            console.log("HI");
         }
-        //console.log(elem);
+    }
 
     setWidth();
     setColor();
+    checkData();
 
     clear.addEventListener("click", clearFild, false);
     moove.addEventListener("click", moovePic, false);
@@ -128,5 +111,5 @@ window.onload = () => {
 
     example.addEventListener("mousedown", getFirstPosition, false);
     example.addEventListener("mouseup", getSecondPosition, false);
-    example.addEventListener("mouseup", mooveLine, false);
+    example.addEventListener("mouseup", startDrawing, false);
 };
