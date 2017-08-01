@@ -69,6 +69,7 @@
    }
 
    putPoint = (colorLS) => {
+       let a, b, c, d, e, f;
        ctx.beginPath();
        ctx.strokeStyle = colorLS || canvasProps.color;
        ctx.fillStyle = colorLS || canvasProps.color;
@@ -86,7 +87,7 @@
            let a = localStorage;
            // console.log("HI2");
        } else {
-           console.log("HI");
+           //console.log("HI");
        }
    }
 
