@@ -1,0 +1,69 @@
+body {
+    background-color: #E0FFFF;
+}
+
+#canvasTest {
+    border: 3px solid gray;
+    cursor: crosshair;
+    background-color: white;
+    float: left;
+}
+
+button {
+    margin: 8px 0;
+    text-decoration: none;
+    text-align: center;
+    padding: 8px 16px;
+    border: solid 3px #191970;
+    -webkit-border-radius: 16px;
+    -moz-border-radius: 16px;
+    border-radius: 16px;
+    font: 12px Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    color: #ffffff;
+    background-color: #e0b3db;
+    outline: 0 !important;
+    min-width: 140px;
+}
+
+button:hover {
+    color: #006400;
+    border: solid 3px #006400;
+}
+
+button:active {
+    color: #696969;
+    border: solid 3px #696969;
+}
+
+.sidebar {
+    width: 180px;
+    float: left;
+    margin-right: 60px;
+    text-align: center;
+    border: solid 3px #006400;
+}
+
+.sidebarRight {
+    width: 180px;
+    float: right;
+    text-align: center;
+    border: solid 3px #006400;
+    margin-right: 12px;
+}
+
+.sidebarRightColor {
+    text-align: left;
+}
+
+label>h3 {
+    text-align: center;
+}
+
+ul {
+    list-style-type: none;
+}
+
+#img {
+    display: none;
+}
