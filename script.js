@@ -1,11 +1,10 @@
-   let count = 1;
-   let data = {};
-   let canvasProps = {};
+   let count = 1,
+       data = {},
+       canvasProps = {},
+       dataLSArray = [],
 
-   let ctx = example.getContext('2d');
-   let img = document.getElementById("img");
-
-
+       ctx = example.getContext('2d'),
+       img = document.getElementById("img");
 
    clearFild = () => {
        ctx.clearRect(0, 0, 600, 400);
@@ -36,16 +35,13 @@
    }
 
    getFirstPosition = (event) => {
-       //console.log("event.pageX = " + event.pageX + " " + "event.pageY = " + event.pageY);
-       //canvasProps.params.push(event.clientX - 11);
-       //canvasProps.params.push(event.clientY - 11);
-       canvasProps.W1X = event.clientX - 11;
-       canvasProps.H1X = event.clientY - 11;
+       canvasProps.W1X = event.pageX - 11;
+       canvasProps.H1X = event.pageY - 11;
    }
 
    getSecondPosition = (event) => {
-       canvasProps.W2X = event.clientX - 11;
-       canvasProps.H2X = event.clientY - 11;
+       canvasProps.W2X = event.pageX - 11;
+       canvasProps.H2X = event.pageY - 11;
    }
 
    startDrawing = () => {
@@ -58,22 +54,32 @@
        setDataToLocalStorage();
    }
 
-   mooveLine = () => {
+   mooveLine = (color, thick, X1LS, Y1LS, X2LS, Y2LS) => {
+       let colo = color || canvasProps.color,
+           moveLineThick = thick || canvasProps.width,
+           X1W = X1LS || canvasProps.W1X,
+           Y1W = Y1LS || canvasProps.H1X,
+           X2W = X2LS || canvasProps.W2X,
+           Y2W = Y2LS || canvasProps.H2X;
+
        ctx.beginPath();
-       ctx.lineWidth = canvasProps.width;
-       ctx.strokeStyle = canvasProps.color;
-       ctx.moveTo(canvasProps.W1X, canvasProps.H1X);
-       ctx.lineTo(canvasProps.W2X, canvasProps.H2X);
+       ctx.lineWidth = moveLineThick;
+       ctx.strokeStyle = colo;
+       ctx.moveTo(X1W, Y1W);
+       ctx.lineTo(X2W, Y2W);
        ctx.stroke();
        ctx.closePath();
    }
 
-   putPoint = (colorLS) => {
-       let a, b, c, d, e, f;
+   putPoint = (colo, thick, X1, Y1) => {
+       let col = colo || canvasProps.color,
+           thickLine = thick || canvasProps.width,
+           X1P = X1 || canvasProps.W1X,
+           Y1P = Y1 || canvasProps.H1X;
        ctx.beginPath();
-       ctx.strokeStyle = colorLS || canvasProps.color;
-       ctx.fillStyle = colorLS || canvasProps.color;
-       ctx.arc(canvasProps.W1X, canvasProps.H1X, (canvasProps.width == 1 ? canvasProps.width : canvasProps.width / 2), 0, (2 * Math.PI), false);
+       ctx.strokeStyle = col;
+       ctx.fillStyle = col;
+       ctx.arc(X1P, Y1P, (thickLine == 1 ? thickLine : thickLine / 2), 0, (2 * Math.PI), false);
        ctx.fill();
    }
 
@@ -81,36 +87,33 @@
        if (count == 1) { localStorage.clear(); }
        localStorage.setItem("canvasDrow" + count++, JSON.stringify(canvasProps));
    }
+   moovePictureWithData = () => {
+       let data = dataLSArray;
+       for (let i = 0, n = data.length; i < n; i++) {
+           let params = data[i].split(','),
+               thickLS = params[0].slice(10, -1),
+               colorLS = params[1].slice(9, -1),
+               X1LS = +params[2].slice(6),
+               Y1LS = +params[3].slice(6),
+               X2LS = +params[4].slice(6),
+               Y2LS = +params[5].slice(6, -1);
 
-   checkData = () => {
-       if (window.localStorage.length > 0) {
-           let a = localStorage;
-           // console.log("HI2");
-       } else {
-           //console.log("HI");
+           if ((X1LS == X2LS) && (Y1LS == Y2LS)) {
+               putPoint(colorLS, thickLS, X1LS, Y1LS)
+           } else {
+               mooveLine(colorLS, thickLS, X1LS, Y1LS, X2LS, Y2LS)
+           }
        }
    }
-
    getSavedData = () => {
        let lS = localStorage;
-
-       for (var i = 0, n = lS.length; i < n; i++) {
-           let keyName = lS.key(i);
-           let keyParam = lS[keyName].split(',');
-           let thickLS = +keyParam[0].slice(10, -1);
-           let colorLS = keyParam[1].slice(9, -1);
-           let X1LS = +keyParam[2].slice(6);
-           let Y1LS = +keyParam[3].slice(6);
-           let X21LS = +keyParam[4].slice(6);
-           let Y2LS = +keyParam[5].slice(6, -1);
-           console.log(keyName);
-           console.log("width : " + thickLS);
-           console.log("color : " + colorLS);
-           console.log("X1LS : " + X1LS);
-           console.log("Y1LS : " + Y1LS);
-           console.log("X21LS : " + X21LS);
-           console.log("Y2LS :" + Y2LS);
+       count = lS.length + 1;
+       for (var prop in lS) {
+           let priority = +prop.slice(10),
+               keyParam = lS[prop];
+           dataLSArray[priority - 1] = keyParam;
        }
+       moovePictureWithData();
    }
 
    clearStorageData = () => {
@@ -119,4 +122,3 @@
 
    setWidth();
    setColor();
-   checkData();
