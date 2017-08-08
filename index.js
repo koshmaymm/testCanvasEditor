@@ -1,2 +1,3 @@
-let editor = require("script.js");
-module.exports = editor;
+import bar from './bar';
+
+bar();
