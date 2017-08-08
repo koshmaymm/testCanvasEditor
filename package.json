@@ -18,8 +18,5 @@
   "devDependencies": {
     "webpack": "^3.4.1"
   },
-  "dependencies": {
-    "webpack": "^3.4.1"
-  },
   "description": ""
 }
