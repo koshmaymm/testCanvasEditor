@@ -18,7 +18,7 @@ let count = 1,
        ctx = example.getContext('2d'),
        img = document.getElementById("img");
 
- function  clearFild  () {
+ clearFild = () => {
        ctx.clearRect(0, 0, 600, 400);
    }
 
