@@ -18,15 +18,15 @@ let count = 1,
        ctx = example.getContext('2d'),
        img = document.getElementById("img");
 
- clearFild = () => {
+ function clearFild () {
        ctx.clearRect(0, 0, 600, 400);
    }
 
-  function setWidth () {
+ function setWidth ()  {
        return canvasProps.width = thickness.options[thickness.selectedIndex].value;
    }
 
-  function setColor () {
+ function setColor () {
        return canvasProps.color = document.querySelector('input[name="checkColor"]:checked').value;
    }
 
