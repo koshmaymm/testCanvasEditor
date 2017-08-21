@@ -1,12 +1,14 @@
 module.exports = {
-    entry: './app.js',
+    entry: './scripts/app.js',
     output: {
-      filename: 'scripts/bundle.js'
+      filename: './scripts/bundle.js'
     },
-    loaders: [
-      {
-        test: /\.js$/,
-        loader: 'babel-loader?presets[]=es2015'
-      }
-    ]
-  }
+    module: {
+      loaders: [
+        {
+          test: /\.js$/,
+          loader: 'babel-loader?presets[]=es2015'
+        }
+      ]
+    } 
+}
