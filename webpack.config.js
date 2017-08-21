@@ -3,7 +3,7 @@ module.exports = {
     output: {
       filename: 'scripts/bundle.js'
     }
-  };
+  },
 
   module: {
     loaders: [
